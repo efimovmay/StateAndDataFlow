@@ -9,6 +9,8 @@ import SwiftUI
 
 struct RegisterView: View {
     @State private var name = ""
+    @State private var valideName = false
+    
     @EnvironmentObject private var user: UserManager
     
     var body: some View {
@@ -16,18 +18,20 @@ struct RegisterView: View {
             HStack {
                 TextField("Enter your name", text: $name)
                     .multilineTextAlignment(.center)
-                Text("3")
+                    .onChange(of: name) { newValue in
+                        valideName = name.count > 3 ? true : false
+                    }
+                Text("\(name.count)")
                     .padding()
-                    
+                    .foregroundColor(valideName ? .green : .red)
             }
-    
-            
             Button(action: registerUser) {
                 HStack {
                     Image(systemName: "checkmark.circle")
                     Text("OK")
                 }
             }
+            .disabled(!valideName)
         }
     }
     
