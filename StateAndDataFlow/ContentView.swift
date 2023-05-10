@@ -15,16 +15,15 @@ struct ContentView: View {
         VStack {
             Text("Hi, \(user.name)")
                 .font(.largeTitle)
-                .padding(.top, 100)
+                .padding(.top, 80)
             Text(timer.counter.formatted())
                 .font(.largeTitle)
-                .padding(.top, 100)
-            Spacer()
-            
+                .padding(.top, 80)
+
             ButtonView(timer: timer)
-            
-            
+                .padding(.top, 80)
             Spacer()
+            ButtonLogOut()
         }
     }
 }
@@ -42,13 +41,36 @@ struct ButtonView: View {
     var body: some View {
         Button(action: timer.startTimer) {
             Text(timer.buttonTitle)
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
         }
-        .frame(width: 200, height: 60)
-        .background(.red)
-        .cornerRadius(20)
-        .overlay(RoundedRectangle(cornerRadius: 20).stroke(.black, lineWidth: 4))
+        .modifier(customButtonModifier(backgroundColor: .red))
+    }
+}
+
+struct ButtonLogOut: View {
+    @EnvironmentObject private var user: UserManager
+    
+    var body: some View {
+        Button("LogOut") {
+            user.isRegister = false
+            
+        }
+        .modifier(customButtonModifier(backgroundColor: .blue))
+    }
+}
+
+struct customButtonModifier: ViewModifier {
+    let backgroundColor: Color
+    func body(content: Content) -> some View {
+        content
+            .font(.title)
+            .fontWeight(.bold)
+            .foregroundColor(.white)
+            .frame(width: 200, height: 60)
+            .background(backgroundColor)
+            .cornerRadius(20)
+            .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(.black, lineWidth: 4)
+            )
     }
 }
