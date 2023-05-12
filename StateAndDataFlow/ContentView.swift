@@ -13,7 +13,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Text("Hi, \(user.name)")
+            Text("Hi, \(user.name ?? "")")
                 .font(.largeTitle)
                 .padding(.top, 80)
             Text(timer.counter.formatted())
@@ -52,6 +52,7 @@ struct ButtonLogOut: View {
     var body: some View {
         Button("LogOut") {
             user.isRegister = false
+            user.name = ""
             
         }
         .modifier(customButtonModifier(backgroundColor: .blue))
