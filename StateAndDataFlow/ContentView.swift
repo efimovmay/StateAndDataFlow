@@ -52,6 +52,7 @@ struct ButtonLogOut: View {
     var body: some View {
         Button("LogOut") {
             user.isRegister = false
+            user.name = ""
             
         }
         .modifier(customButtonModifier(backgroundColor: .blue))
