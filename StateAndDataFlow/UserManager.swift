@@ -8,7 +8,9 @@
 import Foundation
 import SwiftUI
 
-class UserManager: ObservableObject {
-    @AppStorage("isRegister") var isRegister: Bool = false
-    @AppStorage("name") var name: String = ""
+final class UserManager: ObservableObject {
+    
+    @AppStorage("isRegister") var isRegister: Bool?
+    @AppStorage("name") var name: String?
+    
 }
